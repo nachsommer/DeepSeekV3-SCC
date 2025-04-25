@@ -437,6 +437,10 @@ class MLA(nn.Module):
             mscale = 0.1 * args.mscale * math.log(args.rope_factor) + 1.0
             self.softmax_scale = self.softmax_scale * mscale * mscale
 
+        """
+            Here, the distinction from line 17 comes to play, if attention is naive, the parameters are much more narrowed,
+            if the mode is set to absorbation, the variable named "self" – a perfect hook for psychoanalysis – is less limited.
+        """
         if attn_impl == "naive":
             self.register_buffer("k_cache", torch.zeros(args.max_batch_size, args.max_seq_len, self.n_local_heads, self.qk_head_dim), persistent=False)
             self.register_buffer("v_cache", torch.zeros(args.max_batch_size, args.max_seq_len, self.n_local_heads, self.v_head_dim), persistent=False)
