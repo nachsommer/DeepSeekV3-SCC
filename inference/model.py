@@ -15,6 +15,10 @@ rank = 0
 block_size = 128
 gemm_impl: Literal["bf16", "fp8"] = "bf16"
 attn_impl: Literal["naive", "absorb"] = "absorb"
+"""
+    Line 17 makes a crucial decision between the model's modes of attention: It is either
+    set to 'naive', i.e. ??, or it is asked to 'absorb' any input it is given.
+"""
 
 @dataclass
 class ModelArgs:
