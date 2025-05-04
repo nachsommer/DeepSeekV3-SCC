@@ -77,6 +77,25 @@ def generate(
         completion_tokens.append(toks)
     return completion_tokens
 
+"""
+According to Aristotle's Poetics, every story (and: program) has a beginning, a middle and an end. 
+The beginning is usually marked by the main function, which starts here in line 100 (and ends in line 186 
+with the destroy command to free up the memory used). First, it defines which data is to be accepted as 
+input values and in what form. And immediately afterwards, in line 119, it becomes relevant to the history of ideas. 
+This is because the program uses the command world_size = int(os.getenv("WORLD_SIZE", "1")) to find out how many GPUs, 
+i.e. the coveted special chips for AI calculations that Nvidia sells at a high price, are available on the 
+executing machine. If this value is greater than 1, a multiplication of possible worlds immediately unfolds, 
+as outlined by Gottfried Wilhelm Leibniz in his _Theodicy_ (1710) as a general argument against the late antique 
+contradiction of an omnipotent God and the existence of evil in the world. Leibniz's pious solution to this 
+basic contradiction of Western doctrines of salvation consisted of assuming, with recourse to his later 
+published _Monadology_ (1714), a multitude of possible worlds in which reality appears as the best of all possible 
+worlds created by God. In all other possible worlds, various metaphysical, physical and moral evils prevailed 
+in varying degrees. AI models by no means shy away from these virtual horrors and calculate the possible 
+worlds unperturbed according to the number of GPUs made available to them. However, if the world size is 
+only 1, everything suddenly becomes very slow, the model takes a correspondingly long time to get rendered, 
+there is no access to parallel worlds provided by Nvidia, no events occur simultaneously with the smallest 
+changes elsewhere, we remain thrown back into a single possible world with no alternative.
+"""
 
 def main(
     ckpt_path: str,
@@ -115,6 +134,15 @@ def main(
     with torch.device("cuda"):
         model = Transformer(args)
     tokenizer = AutoTokenizer.from_pretrained(ckpt_path)
+    """
+    Meanwhile, lines 146 and 147, tokenizer.decode(generate(model, [tokenizer.encode("DeepSeek")], 2, -1, 1.)[0]) and 
+    load_model(model, os.path.join(ckpt_path, f "model{rank}-mp{world_size}.safetensors")), because here powerful structures 
+    that were previously dormant in the provided libraries in the background are suddenly brought to life by a single, nested command. 
+    Thus, the language mechanism (tokenizer) is created as a gateway to the latent space by calling the transformer libraries 
+    before this language mechanism is linked to the corresponding content, i.e. to the already trained model, in the following 
+    line 147, so that as a result the language capability is brought together with the world knowledge stored in the latent space, 
+    tongue and memory join together to form a functional language-processing unit, as it were.
+    """
     tokenizer.decode(generate(model, [tokenizer.encode("DeepSeek")], 2, -1, 1.)[0])
     load_model(model, os.path.join(ckpt_path, f"model{rank}-mp{world_size}.safetensors"))
 
