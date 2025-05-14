@@ -135,13 +135,22 @@ def main(
         model = Transformer(args)
     tokenizer = AutoTokenizer.from_pretrained(ckpt_path)
     """
-    Meanwhile, lines 146 and 147, tokenizer.decode(generate(model, [tokenizer.encode("DeepSeek")], 2, -1, 1.)[0]) and 
+    Meanwhile, lines 155 and 156, tokenizer.decode(generate(model, [tokenizer.encode("DeepSeek")], 2, -1, 1.)[0]) and 
     load_model(model, os.path.join(ckpt_path, f "model{rank}-mp{world_size}.safetensors")), because here powerful structures 
     that were previously dormant in the provided libraries in the background are suddenly brought to life by a single, nested command. 
     Thus, the language mechanism (tokenizer) is created as a gateway to the latent space by calling the transformer libraries 
     before this language mechanism is linked to the corresponding content, i.e. to the already trained model, in the following 
     line 147, so that as a result the language capability is brought together with the world knowledge stored in the latent space, 
     tongue and memory join together to form a functional language-processing unit, as it were.
+
+    At work here is the same mechanism (tokenizer) applied in two elegant sweeps: the first one breaks down language (such as 
+    the prompt that the user gives) into smaller components--not just words and aplhabetic letters but other linguistic combinations 
+    such as prefixes or suffixes--and then substitutes these components with numbers--since the computer understands no language 
+    but mathematics, each possible linguistic token is assigned its own unique numerical housenumber--and the second one does the 
+    opposite--it recombines the output by looking up the housenumbers and substituting them with the names of each token, which 
+    are then combined to produce fluid language we all know and love and read on our screens. Armed and ready with bits of language 
+    to process, the model--duly informed regarding the state and size of the world--is finally brought into life, 
+    loaded into memory, ready in attention.
     """
     tokenizer.decode(generate(model, [tokenizer.encode("DeepSeek")], 2, -1, 1.)[0])
     load_model(model, os.path.join(ckpt_path, f"model{rank}-mp{world_size}.safetensors"))
