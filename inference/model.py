@@ -17,7 +17,7 @@ gemm_impl: Literal["bf16", "fp8"] = "bf16"
 attn_impl: Literal["naive", "absorb"] = "absorb"
 """
     Line 17 makes a crucial decision between the model's modes of attention: It is either
-    set to 'naive', i.e. ??, or it is asked to 'absorb' any input given.
+    set to 'naive', or it is asked to 'absorb' any input given. See also line 446
 """
 
 @dataclass
@@ -440,6 +440,23 @@ class MLA(nn.Module):
         """
             Here, the distinction from line 17 comes to play, if attention is naive, the parameters are much more narrowed,
             if the mode is set to absorbation, the variable named "self" – a perfect hook for psychoanalysis – is less limited.
+
+            Attention, it turns out, is a critical issue for DeepSeek. One of its technical novelties has to do with the 
+            application of a specific, new form of attention not seen before in large language models. Attention as technical 
+            concept has been one of the cornerstones of this latest wave of artificial intelligence; how words (or more accurately, 
+            tokens) relate to each other is, in such models, found not just by word-proximity (which is the assumption that words 
+            appearing closer to each other must be closer in their meaning) but more importantely by 'heads' that read in differential 
+            states of attentiveness (in one read, one may 'attend' to only the connections in a certain domain, spotlighting only the most 
+            crucial parts of the text). DeepSeek's way of looking at the world can be gleaned by just noting that the two kinds of 
+            attention available at hand for the model here--naive and absorb--are indiscretely reminiscent of terms used in psychology. 
+            
+            Naive attention is a generic understanding of our intuitive selves and how we look at the world, while absorption is a 
+            kind of engagement that aims to truly immerse and intimately attend to--be in the service of--the subject of contemplation. 
+            DeepSeek also offers its own model these two options, and absorption is the default state. Here absorbing paradoxically means 
+            recombining previous (lets call them naive) moments of attention (called weights). Many unexplored glances can sometimes just 
+            add up to an intense, (self-)absorbed attention: that is the behavorial hypothesis of these technologies. That numerous iterations 
+            of attention heads learning from language gathered from the whole internet would run up massive power bills should come as no 
+            surprise, then, for anyone who has had to 'pay' attention without interest.
         """
         if attn_impl == "naive":
             self.register_buffer("k_cache", torch.zeros(args.max_batch_size, args.max_seq_len, self.n_local_heads, self.qk_head_dim), persistent=False)
