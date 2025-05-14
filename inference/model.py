@@ -17,7 +17,7 @@ gemm_impl: Literal["bf16", "fp8"] = "bf16"
 attn_impl: Literal["naive", "absorb"] = "absorb"
 """
     Line 17 makes a crucial decision between the model's modes of attention: It is either
-    set to 'naive', or it is asked to 'absorb' any input given. See also line 446
+    set to 'naive', or it is asked to 'absorb' any input given. See also line 441
 """
 
 @dataclass
