@@ -135,12 +135,12 @@ def main(
         model = Transformer(args)
     tokenizer = AutoTokenizer.from_pretrained(ckpt_path)
     """
-    Meanwhile, lines 155 and 156, tokenizer.decode(generate(model, [tokenizer.encode("DeepSeek")], 2, -1, 1.)[0]) and 
+    Meanwhile, lines (https://github.com/nachsommer/DeepSeekV3-SCC/blob/6c9db24d702c987baff62689df99a0c0fd9ec231/inference/generate.py#L155)[155] and 156, tokenizer.decode(generate(model, [tokenizer.encode("DeepSeek")], 2, -1, 1.)[0]) and 
     load_model(model, os.path.join(ckpt_path, f "model{rank}-mp{world_size}.safetensors")), because here powerful structures 
     that were previously dormant in the provided libraries in the background are suddenly brought to life by a single, nested command. 
     Thus, the language mechanism (tokenizer) is created as a gateway to the latent space by calling the transformer libraries 
     before this language mechanism is linked to the corresponding content, i.e. to the already trained model, in the following 
-    line 147, so that as a result the language capability is brought together with the world knowledge stored in the latent space, 
+    line 156, so that as a result the language capability is brought together with the world knowledge stored in the latent space, 
     tongue and memory join together to form a functional language-processing unit, as it were.
 
     At work here is the same mechanism (tokenizer) applied in two elegant sweeps: the first one breaks down language (such as 
